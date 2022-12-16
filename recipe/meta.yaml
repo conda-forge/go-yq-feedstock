@@ -33,7 +33,7 @@ requirements:
 test:
   commands:
     - yq --help
-    - "yq eval --null-input --no-colors '.key = \"cat\"' | grep -E '^key: cat$'"
+    - "yq eval --null-input --no-colors '.key = \"cat\"' | grep -E '^key: cat$'"  # [unix]
 
 about:
   home: https://github.com/mikefarah/yq
