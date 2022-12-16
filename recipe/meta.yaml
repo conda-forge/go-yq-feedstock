@@ -11,24 +11,24 @@ source:
 
 build:
   number: 0
-  skip: true  # [not unix]
   binary_relocation: false
   script:
-    - go build --ldflags '-s -w'
-    - mkdir -p "$PREFIX/bin/"
-    - install ./yq "$PREFIX/bin/yq"
+    - go install -v .                               # [win]
+    - go build --ldflags '-s -w'                    # [unix]
+    - mkdir -p "$PREFIX/bin/"                       # [unix]
+    - install ./yq "$PREFIX/bin/yq"                 # [unix]
     # Build the documentation
-    - ./scripts/generate-man-page-md.sh
-    - ./scripts/generate-man-page.sh
-    - mkdir -p "$PREFIX/share/man/man1/"
-    - install ./yq.1 "$PREFIX/share/man/man1/yq.1"
+    - ./scripts/generate-man-page-md.sh             # [unix]
+    - ./scripts/generate-man-page.sh                # [unix]
+    - mkdir -p "$PREFIX/share/man/man1/"            # [unix]
+    - install ./yq.1 "$PREFIX/share/man/man1/yq.1"  # [unix]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('go-cgo') }}
     - make
-    - pandoc
+    - pandoc  # [unix]
 
 test:
   commands:
