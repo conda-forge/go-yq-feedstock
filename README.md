@@ -1,11 +1,11 @@
-About go-yq
-===========
+About go-yq-feedstock
+=====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/go-yq-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/mikefarah/yq
 
 Package license: MIT
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/go-yq-feedstock/blob/main/LICENSE.txt)
 
 Summary: Process YAML documents from the CLI
 
