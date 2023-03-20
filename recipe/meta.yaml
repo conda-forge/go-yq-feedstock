@@ -1,5 +1,5 @@
 {% set name = "go-yq" %}
-{% set version = "4.32.1" %}
+{% set version = "4.32.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/mikefarah/yq/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 724cddee2b475ffebeb4f11031b6a01267e22350277c3bb965bb1b404488c635
+  sha256: 769b77a01fe8c389b17b3a5eb606a395540eb7ccdc533e2db2542baeceefcbc9
 
 build:
   number: 0
