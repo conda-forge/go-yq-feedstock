@@ -19,7 +19,6 @@ properties, csv and tsv. It doesn't yet support everything jq does - but it
 does support the most common operations and functions, and more is being
 added continuously.
 
-
 Current build status
 ====================
 
@@ -209,4 +208,5 @@ Feedstock Maintainers
 =====================
 
 * [@chrisburr](https://github.com/chrisburr/)
+* [@xhochy](https://github.com/xhochy/)
 
