@@ -1,0 +1,66 @@
+schema_version: 1
+
+context:
+  name: go-yq
+  version: 4.45.4
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/mikefarah/yq/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: e06b9b219ad885b08cf983a7ce5ff6d946587ab4ffc62de4538655bb50e39111
+  target_directory: src
+
+build:
+  number: 1
+  script:
+    - cd src
+    - go-licenses save . --save_path ../library_licenses
+    - if: unix
+      then: go build -ldflags="-s -w" -v -o $PREFIX/bin/yq
+      else: go build -ldflags="-s -w" -v -o %LIBRARY_BIN%\yq.exe
+    - if: unix
+      then: 
+        - ./scripts/generate-man-page-md.sh
+        - ./scripts/generate-man-page.sh
+        - "mkdir -p \"$PREFIX/share/man/man1/\""
+        - "install ./yq.1 \"$PREFIX/share/man/man1/yq.1\""
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+    - ${{ compiler('go-cgo') }}
+    - make
+    - go-licenses
+    - if: unix
+      then: pandoc
+
+tests:
+  - script:
+      - yq --help
+      - if: unix
+        then: "yq eval --null-input --no-colors '.key = \"cat\"' | grep -E '^key: cat$'"
+
+about:
+  summary: Process YAML documents from the CLI
+  description: |
+    A lightweight and portable command-line YAML, JSON and XML processor.
+    yq uses jq like syntax but works with yaml files as well as json, xml,
+    properties, csv and tsv. It doesn't yet support everything jq does - but it
+    does support the most common operations and functions, and more is being
+    added continuously.
+  license: MIT
+  license_file: 
+    - src/LICENSE
+    - library_licenses/
+  homepage: https://github.com/mikefarah/yq
+  repository: https://github.com/mikefarah/yq
+  documentation: https://mikefarah.gitbook.io/yq/
+
+extra:
+  recipe-maintainers:
+    - chrisburr
+    - xhochy
