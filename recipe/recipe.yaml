@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: go-yq
-  version: "4.52.3"
+  version: "4.52.4"
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/mikefarah/yq/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: f312e535a795975d92a7a9c5d9fb20be0f80b9c39c5578490dbc5f951f9c1eeb
+  sha256: 8735165d0dc9a3348283dbcfd5916474ef30281f855909accc40395a5f851dea
   target_directory: src
 
 build:
