@@ -14,18 +14,18 @@ source:
   target_directory: src
 
 build:
-  number: 0
+  number: 1
   script:
     - cd src
     - go-licenses save . --save_path ../library_licenses
     - if: unix
       then:
-        - go build -ldflags="-s -w" -v -o $PREFIX/bin/yq
+        - go build -trimpath -ldflags="-s -w" -v -o $PREFIX/bin/yq
         - ./scripts/generate-man-page-md.sh
         - ./scripts/generate-man-page.sh
         - "mkdir -p \"$PREFIX/share/man/man1/\""
         - "install ./yq.1 \"$PREFIX/share/man/man1/yq.1\""
-      else: go build -ldflags="-s -w" -v -o %LIBRARY_BIN%\yq.exe
+      else: go build -trimpath -ldflags="-s -w" -v -o %LIBRARY_BIN%\yq.exe
 requirements:
   build:
     - ${{ compiler('c') }}
