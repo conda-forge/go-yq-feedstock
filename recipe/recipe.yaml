@@ -36,7 +36,6 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ stdlib("c") }}
     - ${{ compiler('go-cgo') }}
-    - make
     - go-licenses
     - if: unix
       then: pandoc
