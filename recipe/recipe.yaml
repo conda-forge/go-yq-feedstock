@@ -15,6 +15,11 @@ source:
 
 build:
   number: 0
+  # yq links only system libraries, so it needs no RPATH. Relinking a non-PIE
+  # executable maps a new segment at address 0, which breaks linux-ppc64le
+  # (go-activation stopped passing -buildmode=pie there for golang/go#82324).
+  dynamic_linking:
+    binary_relocation: false
   script:
     - cd src
     - go-licenses save . --save_path ../library_licenses
