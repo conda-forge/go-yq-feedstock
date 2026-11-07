@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: go-yq
-  version: "4.54.1"
+  version: "4.54.2"
 
 package:
   name: ${{ name|lower }}
@@ -10,11 +10,16 @@ package:
 
 source:
   url: https://github.com/mikefarah/yq/archive/refs/tags/v${{ version }}.tar.gz
-  sha256: 0cec36e7035dd56c508bda56245cbd71e4495d2317bc2528165c4162bce79335
+  sha256: 13391403bb284452e102a532037c1ce5f5cd9d2a45f3e70521e810d5c32afe46
   target_directory: src
 
 build:
   number: 0
+  # yq links only system libraries, so it needs no RPATH. Relinking a non-PIE
+  # executable maps a new segment at address 0, which breaks linux-ppc64le
+  # (go-activation stopped passing -buildmode=pie there for golang/go#82324).
+  dynamic_linking:
+    binary_relocation: false
   script:
     - cd src
     - go-licenses save . --save_path ../library_licenses
@@ -31,7 +36,6 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ stdlib("c") }}
     - ${{ compiler('go-cgo') }}
-    - make
     - go-licenses
     - if: unix
       then: pandoc
